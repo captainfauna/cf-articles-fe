@@ -62,5 +62,9 @@ export function useArticles() {
     return await $fetch<ResponseGetArticles<Article[]>>(`${baseURL}/articles/list/${slug}`, { method: 'GET' })
   }
 
-  return { getArticles, getArticleById, getArticleBySlug, getListByCategory }
+    const formatArticleImage = (path: string): string => {
+        return `${config.public.imageBaseUrl}/${path}`
+    }
+
+  return { getArticles, getArticleById, getArticleBySlug, getListByCategory, formatArticleImage }
 }

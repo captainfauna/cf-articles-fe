@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     public: {
       apiBaseUrl: '',
       apiArticleUrl: '',
+      imageBaseUrl: '',
     },
   },
 
