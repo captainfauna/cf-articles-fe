@@ -205,6 +205,11 @@ onBeforeUnmount(() => {
   window.removeEventListener("keydown", onKeydown);
   window.removeEventListener("click", onClickOutside);
 });
+
+const router = useRouter();
+const searchArticles = () => {
+  router.push(`/search/${searchKeyword.value}`);
+};
 </script>
 
 <template>
@@ -241,8 +246,10 @@ onBeforeUnmount(() => {
         <!-- Search -->
         <div class="relative w-full">
           <button
+            type="button"
             class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-cf-blue transition-colors inline-flex items-center"
             aria-label="Search"
+            @click="searchArticles()"
           >
             <Icon name="mynaui:search" size="1.25rem" />
           </button>
@@ -252,13 +259,14 @@ onBeforeUnmount(() => {
             type="text"
             placeholder="Cari artikel tentang kucing, ..."
             class="w-full border border-black/20 py-2.5 pl-4 pr-10 rounded-xl focus:outline-none focus:border-[1.5px] focus:border-cf-blue text-sm sm:text-base"
+            @keyup.enter="searchArticles()"
           />
         </div>
 
         <!-- CTA (desktop) -->
         <div class="flex whitespace-nowrap">
           <NuxtLink
-            to="/daftar"
+            to="/"
             class="hidden lg:inline-flex py-2.5 px-6 border-2 text-white bg-linear-to-r from-[#00B8DB] to-[#155DFC] rounded-full font-medium hover:opacity-90 transition"
           >
             Contact us

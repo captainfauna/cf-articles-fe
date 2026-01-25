@@ -27,6 +27,7 @@ export interface ResponseGetArticles<T> {
 
 export interface ArticleParam extends PaginationParam {
     categoryId?: number;
+    search?: string;
 }
 
 export function useArticles() {
@@ -41,6 +42,10 @@ export function useArticles() {
     let params: string[] = []
     if(param.categoryId) {
         params.push(`category_id=${param.categoryId}`)
+    }
+
+    if(param.search) {
+      params.push(`search=${param.search}`)
     }
 
     if(param.page >= 0) params.push(`page=${param.page}`)

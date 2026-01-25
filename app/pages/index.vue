@@ -31,8 +31,14 @@ watch(
   () => {
     loadArticles();
   },
-  { immediate: true }
+  { immediate: true },
 );
+
+const keyword = ref<string>("");
+const router = useRouter();
+const searchArticles = () => {
+  router.push(`/search/${keyword.value}`);
+};
 </script>
 
 <template>
@@ -61,12 +67,16 @@ watch(
               <Icon name="mynaui:search" size="1.25rem" />
             </span>
             <input
+              v-model="keyword"
               type="text"
               placeholder="Search pet care topics..."
               class="w-full bg-white text-black py-4 pl-12 pr-10 rounded-full focus:outline-none"
+              @keyup.enter="searchArticles()"
             />
             <button
+              type="button"
               class="px-4 py-2 rounded-full cursor-pointer absolute right-2.5 top-7 -translate-y-1/2 text-white hover:opacity-90 transition-colors inline-flex items-center bg-linear-to-r from-[#00B8DB] to-[#155DFC]"
+              @click="searchArticles()"
             >
               Search
             </button>
