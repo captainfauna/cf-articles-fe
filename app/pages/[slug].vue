@@ -16,7 +16,7 @@ const processContent = async (html: string) => {
   const paragraphs = Array.from(document.querySelectorAll("p"));
 
   for (const p of paragraphs) {
-    const links = Array.from(p.querySelectorAll('a[href*="captainfauna.co.id"]'));
+    const links = Array.from(p.querySelectorAll('a[href*="captainfauna"]'));
     if (links.length === 0) continue;
 
     let insertAfterEl: Element = p;
@@ -34,7 +34,7 @@ const processContent = async (html: string) => {
 
         const card = document.createElement("div");
         card.innerHTML = `
-          <a href="https://captainfauna.co.id/products/${slug}" target="blank" class="flex my-6 rounded-xl border-4 border-gray-100 bg-white overflow-hidden gap-4 no-underline">
+          <a href="https://captainfauna.com/${slug}" target="blank" class="flex my-6 rounded-xl border-4 border-gray-100 bg-white overflow-hidden gap-4 no-underline">
             <div class="overflow-hidden w-full max-w-1/4 md:aspect-square">
               <img src="${formatProductImage(product.image)}" class="w-full h-full object-cover" />
             </div>
@@ -84,7 +84,7 @@ processedContent.value = await processContent(article.content);
 function extractSlug(url: string) {
   try {
     const u = new URL(url);
-    // URL is like https://captainfauna.co.id/products/kaizoo-slug
+    // URL is like https://captainfauna.com/kaizoo-slug or https://captainfauna.co.id/products/kaizoo-slug
     // Extract only the last path segment (the actual product slug)
     const segments = u.pathname.split("/").filter(Boolean);
     return segments[segments.length - 1] || null;
@@ -135,10 +135,10 @@ const jsonLd: Record<string, any> = {
   publisher: {
     "@type": "Organization",
     name: "Captain Fauna",
-    url: "https://captainfauna.co.id",
+    url: "https://captainfauna.com",
     logo: {
       "@type": "ImageObject",
-      url: "https://captainfauna.co.id/favicon.ico",
+      url: "https://captainfauna.com/favicon.ico",
     },
   },
   mainEntityOfPage: {
