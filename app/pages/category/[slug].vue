@@ -46,6 +46,62 @@ watch(
   },
   { immediate: true }
 );
+
+// --- SEO ---
+const siteUrl = "https://article.captainfauna.co.id";
+const canonicalUrl = `${siteUrl}/category/${catSlug}`;
+const catName = category.value?.name ?? catSlug;
+const animalName = category.value?.animal?.name ?? "Hewan";
+const metaTitle = `${catName} — Artikel ${animalName} | Captain Fauna`;
+const metaDescription = `Kumpulan artikel terpercaya tentang ${catName} untuk ${animalName} peliharaan Anda. Tips dan panduan dari dokter hewan Captain Fauna.`;
+
+useSeoMeta({
+  title: metaTitle,
+  description: metaDescription,
+  ogTitle: metaTitle,
+  ogDescription: metaDescription,
+  ogUrl: canonicalUrl,
+  ogType: "website",
+  ogSiteName: "Captain Fauna",
+  twitterCard: "summary_large_image",
+  twitterTitle: metaTitle,
+  twitterDescription: metaDescription,
+  robots: "index, follow",
+});
+
+useHead({
+  title: metaTitle,
+  link: [{ rel: "canonical", href: canonicalUrl }],
+  script: [
+    {
+      type: "application/ld+json",
+      innerHTML: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Artikel",
+            item: siteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: animalName,
+            item: `${siteUrl}/category/${catSlug}`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: catName,
+            item: canonicalUrl,
+          },
+        ],
+      }),
+    },
+  ],
+});
 </script>
 
 <template>

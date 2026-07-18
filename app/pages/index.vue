@@ -39,6 +39,55 @@ const router = useRouter();
 const searchArticles = () => {
   router.push(`/search/${keyword.value}`);
 };
+
+// --- SEO ---
+const siteUrl = "https://article.captainfauna.co.id";
+const metaTitle = "Artikel Perawatan Hewan Peliharaan | Captain Fauna";
+const metaDescription =
+  "Temukan artikel terpercaya tentang perawatan kucing, anjing, dan hewan peliharaan lainnya. Ditulis dan diverifikasi oleh dokter hewan berpengalaman.";
+
+useSeoMeta({
+  title: metaTitle,
+  description: metaDescription,
+  ogTitle: metaTitle,
+  ogDescription: metaDescription,
+  ogImage: `${siteUrl}/img/og-default.jpg`,
+  ogUrl: siteUrl,
+  ogType: "website",
+  ogSiteName: "Captain Fauna",
+  twitterCard: "summary_large_image",
+  twitterTitle: metaTitle,
+  twitterDescription: metaDescription,
+  twitterImage: `${siteUrl}/img/og-default.jpg`,
+  robots: "index, follow",
+});
+
+useHead({
+  title: metaTitle,
+  link: [{ rel: "canonical", href: siteUrl }],
+  script: [
+    {
+      type: "application/ld+json",
+      innerHTML: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: "Captain Fauna Artikel",
+        url: siteUrl,
+        description: metaDescription,
+        publisher: {
+          "@type": "Organization",
+          name: "Captain Fauna",
+          url: "https://captainfauna.co.id",
+        },
+        potentialAction: {
+          "@type": "SearchAction",
+          target: `${siteUrl}/search/{search_term_string}`,
+          "query-input": "required name=search_term_string",
+        },
+      }),
+    },
+  ],
+});
 </script>
 
 <template>
